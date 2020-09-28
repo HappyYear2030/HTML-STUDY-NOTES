@@ -2,7 +2,7 @@
 
 ## 标签
 
-### html
+### [html](https://www.w3school.com.cn/tags/tag_html.asp)
 
 ```
 <html>-</html>
@@ -10,7 +10,7 @@
 
 此元素告知浏览器是一个HTML文档，标签之间限定了文档的开始点与结束点，在他们之间是文档的头部和主体。
 
-### head
+### [head](https://www.w3school.com.cn/tags/tag_head.asp)
 
 ```
 <head>-</head>
@@ -29,7 +29,7 @@
 
 一个由空格分隔的URL列表，这些 URL 包含着**有关页面的元数据信息**。profile 属性提供了与当前文档相关联的配置文件的 URL。配置文件的格式以及浏览器使用它们的方式都还没有进行定义，这个属性主要是**为将来的开发而保留的占位符**。
 
-### base（空元素）
+### [base（空元素）](https://www.w3school.com.cn/tags/tag_base.asp)
 
 ```
 <base/>
@@ -75,7 +75,7 @@ framename
 
 
 
-### link（空元素）
+### [link（空元素）](https://www.w3school.com.cn/tags/tag_link.asp)
 
 ```
 <link/>
@@ -259,7 +259,7 @@ MIME_type
 
 表示被链接的文档类型
 
-### meta（空元素）
+### [meta（空元素）](https://www.w3school.com.cn/tags/tag_meta.asp)
 
 ```
 <meta/>
@@ -267,4 +267,36 @@ MIME_type
 
 meta元素提供有关界面的元信息，比如针对搜索引擎和更新频度的描述和关键词，其标签的属性定义了与文档相关联的名称/值对。
 
-### script
+### [script](https://www.w3school.com.cn/tags/tag_script.asp)
+
+```
+<script>-<script>
+```
+
+此元素可以在HTML中插入一段JavaScript
+
+### [style](https://www.w3school.com.cn/tags/tag_style.asp)
+
+```
+<style>-</style>
+```
+
+此标签用于为HTML文档定义样式信息，在style中，可以规定在浏览器中如何呈现HTML文档。type属性是必须的，定义style元素的内容，唯一可能的值是“text/css”。
+
+### [title](https://www.w3school.com.cn/tags/tag_title.asp)
+
+```
+<title>-</title>
+```
+
+该元素可定义文档的标题。浏览器会以特殊的方式来使用标题，并且通常把它放置在浏览器窗口的标题栏或状态栏上。同样，当把文档加入用户的链接列表或者收藏夹或书签列表时，标题将成为该文档链接的默认名称。
+
+### [body](https://www.w3school.com.cn/tags/tag_body.asp)
+
+```
+<body>-</body>
+```
+
+body 元素定义文档的主体。
+
+body 元素包含文档的所有内容（比如文本、超链接、图像、表格和列表等等。）
