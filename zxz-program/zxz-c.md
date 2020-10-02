@@ -9,7 +9,9 @@
 
 宏定义 可以像上式一样定义函数计算，大概。
 
+我感觉是因为左边```max(a, b)```命名了右边, 右边```(((a)?(b))>(a):(b))```是个值<br/>
 
+仍然符合宏定义的标准。
 
  #### 2020.10.1
 
@@ -133,5 +135,56 @@ char* dashuxiangjia_11(char a[], char b[]) {
 }
 ```
 
+------
 
+
+
+![UAASWDMY64OPHTBI](小小夕朝图库\UAASWDMY64OPHTBI.png)
+
+未加载```wntdll.pdb```https://blog.csdn.net/fidoliang/article/details/105340095
+
+可能是内存泄漏。
+
+##### 关于内存泄漏
+
+动态内存分配结尾不像数组结尾会给NULL。。。
+
+```strcpy```会给结尾空
+
+###### 动态内存分配初始化不成功，却使用了它
+
+- 在内存使用时检查指针是否为NULL
+
+- Always use **memset** along with malloc, or always use calloc.
+```
+# include <string.h>
+void *memset(void *s, int c, unsigned long n);(memory set)
+将指针变量 s 所指向的前 n 字节的内存单元用一个“整数” c 替换，注意 c 是 int 型。s 是 void* 型的指针变量，所以它可以为任何类型的数据进行初始化。
+# stdlib.h或malloc.h
+void *calloc(unsigned n,unsigned size)；
+在内存的动态存储区中分配n个长度为size的连续空间，函数返回一个指向分配起始地址的指针；如果分配不成功，返回NULL。
+# string.h
+void *memcpy(void *dest, const void *src, size_t n);
+从src的开始位置拷贝n个字节的数据到dest。如果dest存在数据，将会被覆盖。memcpy函数的返回值是dest的指针。
+```
+
+- '\0' = 0
+
+###### 尚未初始化就引用
+
+- 给初始值
+
+###### 内存分配成功并且已经初始化，但操作越过了内存的边界
+
+- 例如在使用数组时经常发生下标“多1”或者“少1”的操作。特别是在for循环语句中，循环次数很容易搞错，导致数组操作越界。
+
+###### 忘记了释放内存，造成内存泄露
+
+- 记得```free```
+
+###### [相关链接](https://blog.csdn.net/qq_32319583/article/details/53641469) 
+
+------
+
+#### 2020.10.2
 
