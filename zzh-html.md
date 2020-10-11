@@ -31,11 +31,24 @@ ps:
 比如：html链接由<a>标签定义。连接的地址在href属性中指定：<a href="http://i.mooc.chaoxing.com/space/index?t=1588604825653">四川大学锦城学院</a>
 ```
 
-### ··属性例子[[html参考手册]](https://www.w3school.com.cn/tags/html_ref_byfunc.asp)
+### ·属性例子[[html参考手册]](https://www.w3school.com.cn/tags/html_ref_byfunc.asp)
 
 ```
 [[html参考手册]](https://www.w3school.com.cn/tags/html_ref_byfunc.asp)
 ```
 
+| 标签                 | 描述             |
+| -------------------- | ---------------- |
+| <center>             | 定义居中的内容。 |
+| <font> 和 <basefont> | 定义 HTML 字体。 |
+| <s> 和 <strike>      | 定义删除线文本   |
+| <u>                  | 定义下划线文本   |
 
+
+
+| 属性    | 描述               |
+| ------- | ------------------ |
+| align   | 定义文本的对齐方式 |
+| bgcolor | 定义背景颜色       |
+| color   | 定义文本颜色       |
 
