@@ -1,3 +1,5 @@
+
+
 #### 2020.9.30
 
 ![R4@$K310F$SNRLM45DCT](小小夕朝图库\R4@$K310F$SNRLM45DCT.png)
@@ -135,6 +137,79 @@ char* dashuxiangjia_11(char a[], char b[]) {
 }
 ```
 
+```
+//我决定不用动态内存分配了
+//就直接100个字节最简单
+//
+char* __dashujia(char* data_1, char* data_2) {
+	char data_num[1000] = { 0 };
+
+	char datalist_1[1000] = { 0 }, datalist_2[1000] = { 0 };
+	int data_1_length = 0, data_2_length = 0, data_lengthmax = 0;
+	int i;
+	for (i = 0; data_1[i]; i++)
+		data_1_length = i + 1; 
+	//printf("%d\n", data_1_length);
+	for (i = 0; data_2[i]; i++)
+		data_2_length = i + 1;
+	//printf("%d\n", data_2_length);
+	data_lengthmax = __max(data_1_length, data_2_length);
+	//printf("%d\n", data_lengthmax);
+	//初始化为‘0’不然相加时有一个字符串里的元素为空就加不了
+	memset(datalist_1, '0', data_lengthmax);
+	memset(datalist_2, '0', data_lengthmax);
+	for (i = 0; i < data_1_length; i++) {
+		datalist_1[i] = data_1[data_1_length - 1 - i];
+	}
+	for (i = 0; i < data_2_length; i++) {
+		datalist_2[i] = data_2[data_2_length - 1 - i];
+	}
+	//printf("%s\n%s\n", datalist_2, datalist_1);
+	//printf("%s\n", datalist_1);
+
+	for (i = 0; i < data_lengthmax; i++) {
+		
+		if (data_num[i] == '1') {
+			data_num[i] = datalist_1[i] + datalist_2[i] - '0' + 1;
+		}
+		else
+		{
+			data_num[i] = datalist_1[i] + datalist_2[i] - '0';
+		}
+
+		if (data_num[i] > '9') {
+			data_num[i] -= 10;
+			data_num[i + 1] = '1';
+		}
+
+	}
+	//printf("%s", data_num);
+	if (data_num[data_lengthmax] == '1') {
+		for (i = 1; i < (data_lengthmax+1)/2 ; i++) {
+			char m;
+			m = data_num[data_lengthmax - i];
+			data_num[data_lengthmax - i] = data_num[i];
+			data_num[i] = m;
+		}
+	}
+	else
+	{
+		for (i = 1; i < data_lengthmax/2; i++) {
+			char m;
+			m = data_num[data_lengthmax - i -1];
+			data_num[data_lengthmax - i - 1] = data_num[i];
+			data_num[i] = m;
+
+		}
+	}
+	//printf("%s", data_num);
+
+	return data_num;
+}
+```
+
+
+
 ------
 
 
@@ -184,6 +259,10 @@ void *memcpy(void *dest, const void *src, size_t n);
 
 ###### [相关链接](https://blog.csdn.net/qq_32319583/article/details/53641469) 
 
+##### free释放非动态存储空间
+
+- 在我完成顺序表的作业时，由于我```free```了线性表```L```而不是```L.elem``` , 导致了这个错误
+
 ------
 
 #### 2020.10.2
@@ -218,5 +297,205 @@ strcmp()函数有许多变体，它们的基本功能是相同的，都是比较
 
 #### 2020.10.4
 
-无符号整型输出用```%d```
+无符号整型输出用```%u``` 其最大值4294967295
+
+#### 2020.10.5
+
+对于一个数据的定义需要指定两种属性----数据类型和存储类别。未声明存储类别为```auto```型。
+
+```
+auto int a;自动变量/动态局部（一般我们用的是这个）
+static int a;静态局部变量（作用域仍然只有函数内但生存期为整个程序，函数调用后其值保留）
+register int a;寄存器变量，存储在CPU寄存器中，可以节省时间，一般用不到。
+extern a;扩展全局变量的作用域
+static int a;此全局静态变量不能被 extern 察觉
+```
+
+
+
+##### 递归算法三部曲
+
+- 找变化：递归运算中变化的量
+
+  对数组实现运算的时候，数组名是不变的，我们可以给函数多加一个参数，以变化。
+
+- 找重复：函数体部分
+
+- 找边界：递归终止的条件，即出口
+
+##### 斐波那契数列
+
+```
+//暴力求，每个分支都算。频度是an(斐波那契第N项)
+int feibonaqie_baoli(int n) {
+	if (n == 1 || n == 2)return 1;
+	return feibonaqie_baoli(n - 1) + feibonaqie_baoli(n - 2);
+
+}
+f(n)
+|       \
+|        \
+f(n-1)   f(n-2)
+|     \     |     \
+|      \    |      \
+f(n-2)  ```  ```     ```
+|
+|
+​```
+|
+|
+f(1||2)
+关于演算顺序是先纵后横。（我觉得以后的赵夕朝应该懂这句话的意思，如今的zxz就不多解释了）
+
+//利用性质简单加法，频度是n-2
+int feibonaqie(int a, int b, int n) {
+	if (n < 3) return b;
+	return feibonaqie(b, a + b, --n);
+}
+int __feibonaqie(int n) {
+	return feibonaqie(1, 1, n);
+}
+```
+
+#### 2020.10.6
+
+字符数组用```scanf```输入时其空格的作用是作多个字符串输入的空格
+
+```
+scanf("%s%s%s%s", str1, str2, str3) 
+输入 how are you?
+则输出 how are you?
+若scanf("%s", str1)
+输入 how are you?
+则输出 how
+```
+
+```
+//汉诺塔游戏 
+//输入层数 最小为三 后三个参数为起始位置、终止位置、桥梁位置
+int hannuota(int censhu, char qishi, char zhongzhi, char qiao) {
+	
+	if (censhu <= 1) return 1;
+	static int i = 0;
+
+	hannuota(censhu - 1, qishi, qiao, zhongzhi);
+	if (censhu == 2) {
+		printf("(%d)from(%c)to(%c)\n", 1, qishi, qiao);
+		i++;
+	}
+	
+	printf("(%d)from(%c)to(%c)\n", censhu, qishi, zhongzhi);
+	i++;
+
+	hannuota(censhu - 1, qiao, zhongzhi, qishi);
+	if (censhu == 2) {
+		printf("(%d)from(%c)to(%c)\n", 1, qiao, zhongzhi);
+		i++;
+	}
+
+	return i;
+}
+
+```
+
+
+
+#### 2020.10.7
+
+虽然我最近没有学习，但是没有关夕。冲冲冲
+
+```memset```是对前n个字节起作用
+
+```
+int main() {
+
+	typedef struct book {
+		int a;
+		char b;
+		double m;
+
+	}book;
+
+	book a = { 2, '5', 10.00 };
+	
+	memset(&a, 0, 7);
+	printf("%d\n", sizeof(book));
+	printf("%d %c %lf", a.a, a.b, a.m);
+	
+	return 0;
+
+
+
+
+}
+```
+
+运行结果如下：
+
+![@T3165X@NTD`73ZG07@AIV](小小夕朝图库\@T3165X@NTD`73ZG07@AIV.png)
+
+其中char还因为对齐有了4个字节。
+
+#### 2020.10.9
+
+函数返回地址时，在主函数里仍然可以通过指针访问。
+
+#### 2020.10.12
+
+##### 二分查找
+
+```
+binary [数]二进制的、二态的 
+binary_search 二分查找
+count 伯爵、指望、数数、总数...
+```
+
+```
+//binary_search
+int binary_search(int key, int a[], int n) {
+	int low, high, mid, count = 0, count1 = 0;
+	low = 0;
+	high = n - 1;
+	while (low<high)
+	{
+		count++;
+		mid = (low + high) / 2;
+		if (key < a[mid])
+			high = mid - 1;
+		else if(key>a[mid])
+		{
+			low = mid + 1;
+		}
+		else if (key == a[mid]) {
+			printf("查找成功！\n 查找%d次！a[%d] = %d", count, mid, key);
+			count1++;
+			break;
+		}
+	}
+	if (count1 == 0)
+		printf("查找失败！");
+	return 0;
+
+}
+
+
+//二分查找  仅对有序数组生效
+status __erfenchazhao(int shuzu[], int zhi, int left, int right) {
+	static int count;//静态局部变量
+	count++;
+	int mid = (left + right) / 2;
+	if (left > right) return OK;
+	if (zhi < shuzu[mid])
+		right = mid - 1;
+	if (zhi > shuzu[mid])
+		left = mid + 1;
+	if (zhi == shuzu[mid]) {
+		printf("查找成功！\n%d位置为%d", zhi, mid);
+		return OK;//结束退出语句
+	}
+	__erfenchazhao(shuzu, zhi, left, right);
+	
+	return OK;
+}
+```
 
